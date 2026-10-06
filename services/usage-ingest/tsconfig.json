@@ -7,7 +7,10 @@
     "skipLibCheck": true,
     "noEmit": true,
     "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types", "./worker-configuration.d.ts"]
+    "types": ["@cloudflare/workers-types", "./worker-configuration.d.ts", "node"],
+    "paths": {
+      "@kilocode/web-shared/*": ["../../packages/web-shared/src/*"]
+    }
   },
-  "include": ["src/**/*.ts", "worker-configuration.d.ts"]
+  "include": ["src/**/*.ts", "worker-configuration.d.ts", "vitest.config.ts"]
 }

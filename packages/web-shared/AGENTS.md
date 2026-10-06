@@ -1,6 +1,9 @@
 # web-shared
 
 Server code shared by `apps/web` and `apps/ai-gateway`, moved out of `apps/web/src`.
+`services/usage-ingest` also consumes the pure usage-record contract. Keep that
+contract and its runtime imports Worker-safe; do not introduce Next.js APIs or
+database clients into its dependency graph.
 
 ## Module resolution
 
@@ -9,7 +12,8 @@ Server code shared by `apps/web` and `apps/ai-gateway`, moved out of `apps/web/s
   own `src` and never resolves here.
 - `@kilocode/web-shared/*` maps to `packages/web-shared/src/*` in every consumer
   tsconfig, the web Jest config, the `@kilocode/trpc` rollup resolver, and the
-  Storybook webpack alias. Keep those entries in sync.
+  Storybook webpack alias. `services/usage-ingest` also maps it in its tsconfig
+  (used by Wrangler's bundler) and Vitest alias. Keep those entries in sync.
 - Code here, including tests and `src/tests/helpers`, must only import from this
   package. `pnpm --filter @kilocode/web-shared typecheck` enforces that with
   `tsconfig.lib.json` for runtime code (tests and helpers excluded) and
